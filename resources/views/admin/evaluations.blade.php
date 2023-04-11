@@ -7,28 +7,39 @@
         <div class="analytics-container">
          
                 <div style="border-radius:4px; padding:20px; background:#fff; margin:0; color:#000; text-align:left;">
-                
-                <form action="{{route('evaluations.store')}}" method="POST">
-                @csrf
-                <h1>Evaluatie {{$course->name}}</h1>
-                {{--  iterate over the array and display the data --}}
+             
+                <h1>Evaluatie alle cursisten</h1>
+            
+                {{-- iterate $students and display the data with a foreach loop
+                also display the course name and a button that links to the evaluation page for that student --}}
 
-                <h3>Softskills (10 punten)</h3>
-                @foreach($course->softskill as $key => $value)
-                    <div>{{$key}} : {{$value->name}} 
-                    <input class="form-control" type="number" name="softskill[{{$value->id}}]" value="">
-                    </div>
-                @endforeach
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Voornaam</th>
+                            <th>Cursus</th>
+                            <th>Actie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach($students as $student)
+                        <tr>
+                            <td>{{$student->name}}</td>
+                            <td>{{$student->first_name}}</td>
+                            @if($student->course)
+                                <td>{{$student->course}}</td>
+                                <td><a href="{{route('evaluations.show', $student->id)}}" class="btn btn-primary">Evalueer</a></td>
+                            @else
+                                <td>No active courses</td>
+                                <td></td>
+                            @endif
+                        </tr>
+                    @endforeach
+                    </tbody>
 
-                <h3>Hardskills (10 punten)</h3>
-                @foreach($course->hardskill as $key => $value)
-                    <div>{{$key}} : {{$value->name}} 
-                    <input class="form-control" type="number" name="hardskill[{{$value->id}}]" value="">
-                    </div>
-                @endforeach
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+               
+            
                 </div>
            
 

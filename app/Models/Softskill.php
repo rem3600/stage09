@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Course;
 
 class Softskill extends Model
 {
@@ -19,5 +18,3 @@ class Softskill extends Model
         return $this->belongsToMany(Course::class);
     }
 }
-
-

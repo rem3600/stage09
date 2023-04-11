@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Hardskill;
-use App\Models\Softskill;
 
 class Course extends Model
 {
@@ -22,5 +20,10 @@ class Course extends Model
     {
         return $this->belongsToMany(Softskill::class);
     }
-        
+
+    // relationship with student one 2 one relationship
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
 }

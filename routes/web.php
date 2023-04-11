@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use request
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +24,16 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+Route::get('/admin/evaluations', function () {
+    // redirect naar /admin
+    // get the course with id 1 and with relations hardskill and softskill eager loaded
+    $course = \App\Models\Course::with('hardskill', 'softskill')->find(1);
+   
+    return view('admin.evaluations', compact('course'));
+});
+
+Route::post('/admin/evaluations', function (Request $request) {
+   // show form post result for dev testing and name the route evaluations.store
+    dd($request->all());
+})->name('evaluations.store');
